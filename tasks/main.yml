@@ -1,0 +1,43 @@
+- name: Create AMI
+  ec2_ami:
+    name: "{{ ec2_ami_name }}"
+    instance_id: "{{ ec2.instances[0].id }}"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  register: ami
+
+- name: Terminate instance
+  ec2:
+    instance_ids: "{{ ec2.instances[0].id }}"
+    state: absent
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+
+- name: Create autoscaling launch configuration
+  ec2_lc:
+    name: "{{ ec2_lc_name }}"
+    image_id: "{{ ami.image_id }}"
+    key_name: "{{ ec2_keypair }}"
+    security_groups: "{{ ec2_lc_groups }}"
+    instance_type: "{{ ec2_lc_instance_type }}"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  register: lc
+
+- name: Create autoscaling group
+  ec2_asg:
+    name: api-gateway
+    launch_config_name: "{{ lc.name }}"
+    vpc_zone_identifier: "{{ ec2_asg_subnets }}"
+    load_balancers: "{{ ec2_asg_load_balancers }}"
+    health_check_type: "{{ ec2_asg_health_check_type }}"
+    replace_all_instances: yes
+    min_size: "{{ ec2_asg_capacity_minimum }}"
+    max_size: "{{ ec2_asg_capacity_maximum }}"
+    desired_capacity: "{{ ec2_asg_capacity_desired }}"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
