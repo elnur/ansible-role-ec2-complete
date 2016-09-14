@@ -29,7 +29,7 @@
 
 - name: Create autoscaling group
   ec2_asg:
-    name: api-gateway
+    name: "{{ ec2_asg_name }}"
     launch_config_name: "{{ lc.name }}"
     vpc_zone_identifier: "{{ ec2_asg_subnets }}"
     load_balancers: "{{ ec2_asg_load_balancers }}"
