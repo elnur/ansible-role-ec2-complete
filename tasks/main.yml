@@ -38,6 +38,7 @@
     min_size: "{{ ec2_asg_capacity_minimum }}"
     max_size: "{{ ec2_asg_capacity_maximum }}"
     desired_capacity: "{{ ec2_asg_capacity_desired }}"
+    tags: "{{ ec2_asg_tags }}"
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
