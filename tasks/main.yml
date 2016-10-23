@@ -22,6 +22,7 @@
     key_name: "{{ ec2_keypair }}"
     security_groups: "{{ ec2_lc_groups }}"
     instance_type: "{{ ec2_lc_instance_type }}"
+    instance_profile_name: "{{ ec2_lc_instance_profile }}"
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
