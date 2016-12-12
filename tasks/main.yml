@@ -33,6 +33,7 @@
     name: "{{ ec2_asg_name }}"
     launch_config_name: "{{ lc.name }}"
     vpc_zone_identifier: "{{ ec2_asg_subnets }}"
+    availability_zones: "{{ ec2_asg_availability_zones }}"
     load_balancers: "{{ ec2_asg_load_balancers }}"
     health_check_type: "{{ ec2_asg_health_check_type }}"
     replace_all_instances: yes
