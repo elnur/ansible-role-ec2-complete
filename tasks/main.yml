@@ -28,6 +28,30 @@
     aws_secret_key: "{{ aws_secret_key }}"
   register: lc
 
+- name: Create load balancer
+  ec2_elb_lb:
+    name: "{{ ec2_elb_name }}"
+    subnets: "{{ ec2_elb_subnets }}"
+    scheme: internal
+    connection_draining_timeout: 60
+    listeners:
+      - protocol: http
+        load_balancer_port: 90
+        instance_port: 8090
+    health_check:
+      ping_protocol: http
+      ping_port: 8090
+      ping_path: /health
+      response_timeout: 5
+      interval: 10
+      unhealthy_threshold: 2
+      healthy_threshold: 2
+    state: present
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  when: ec2_elb_name is defined
+
 - name: Create autoscaling group
   ec2_asg:
     name: "{{ ec2_asg_name }}"
