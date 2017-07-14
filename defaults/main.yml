@@ -3,6 +3,7 @@ ec2_ami_name: "{{ ec2_base_name }}-{{ ansible_date_time.iso8601|regex_replace('\
 ec2_lc_instance_type: t2.micro
 ec2_lc_instance_profile:
 ec2_lc_name: "{{ ec2_base_name }}-{{ ansible_date_time.iso8601|regex_replace('\\D', '') }}"
+ec2_asg_name: "{{ ec2_base_name }}"
 ec2_asg_availability_zones:
 ec2_asg_load_balancers: []
 ec2_asg_capacity_minimum: 1
