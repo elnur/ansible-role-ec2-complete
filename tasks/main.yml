@@ -69,3 +69,22 @@
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
+
+- name: Find all launch configurations
+  ec2_lc_find:
+    name_regex: "{{ ec2_base_name }}-*"
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  register: lcs
+  when: ec2_base_name is defined
+
+- name: Remove old launch configurations
+  ec2_lc:
+    name: "{{ item.name }}"
+    state: absent
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  with_items: "{{ lcs.results[:-5] }}"
+  when: ec2_base_name is defined
