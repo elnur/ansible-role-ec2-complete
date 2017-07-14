@@ -88,3 +88,25 @@
     aws_secret_key: "{{ aws_secret_key }}"
   with_items: "{{ lcs.results[:-5] }}"
   when: ec2_base_name is defined
+
+- name: Find all AMIs
+  ec2_ami_find:
+    owner: self
+    name: "{{ ec2_base_name }}-*"
+    sort: name
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  register: amis
+  when: ec2_base_name is defined
+
+- name: Remove old AMIs
+  ec2_ami:
+    image_id: "{{ item.ami_id }}"
+    delete_snapshot: yes
+    state: absent
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  with_items: "{{ amis.results[:-5] }}"
+  when: ec2_base_name is defined
