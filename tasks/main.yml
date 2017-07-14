@@ -50,7 +50,7 @@
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-  when: ec2_elb_name is defined
+  when: ec2_elb_name is defined and ec2_elb_name
 
 - name: Create autoscaling group
   ec2_asg:
