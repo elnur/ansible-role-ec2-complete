@@ -6,7 +6,7 @@ ec2_lc_name: "{{ ec2_base_name }}-{{ ansible_date_time.iso8601|regex_replace('\\
 ec2_elb_name: "{{ (ec2_asg_health_check_type == 'ELB')|ternary(ec2_base_name, None) }}"
 ec2_asg_name: "{{ ec2_base_name }}"
 ec2_asg_availability_zones:
-ec2_asg_load_balancers: []
+ec2_asg_load_balancers: "{{ (ec2_asg_health_check_type == 'ELB')|ternary(ec2_elb_name, []) }}"
 ec2_asg_capacity_minimum: 1
 ec2_asg_capacity_maximum: 1
 ec2_asg_capacity_desired: 1
