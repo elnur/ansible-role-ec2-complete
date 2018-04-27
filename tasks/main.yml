@@ -5,6 +5,7 @@
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
+    wait: yes
   register: ami
 
 - name: Terminate instance
