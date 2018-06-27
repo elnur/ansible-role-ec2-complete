@@ -35,10 +35,7 @@
     subnets: "{{ ec2_elb_subnets }}"
     scheme: internal
     connection_draining_timeout: 60
-    listeners:
-      - protocol: http
-        load_balancer_port: 8080
-        instance_port: 8080
+    listeners: "{{ ec2_elb_listeners }}"
     health_check:
       ping_protocol: http
       ping_port: 8090
