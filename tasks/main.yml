@@ -37,8 +37,8 @@
     connection_draining_timeout: 60
     listeners:
       - protocol: http
-        load_balancer_port: 90
-        instance_port: 8090
+        load_balancer_port: 8080
+        instance_port: 8080
     health_check:
       ping_protocol: http
       ping_port: 8090
