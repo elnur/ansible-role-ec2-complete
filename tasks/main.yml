@@ -41,7 +41,7 @@
       ping_port: 8090
       ping_path: /health
       response_timeout: 5
-      interval: 10
+      interval: 30
       unhealthy_threshold: 2
       healthy_threshold: 2
     state: present
