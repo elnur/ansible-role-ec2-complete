@@ -1,6 +1,15 @@
 - name: Flush filesystem changes
   shell: sync
 
+- name: Shut down instance
+  ec2:
+    instance_id: "{{ ec2.instances[0].id }}"
+    state: stopped
+    wait: yes
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+
 - name: Create AMI
   ec2_ami:
     name: "{{ ec2_ami_name }}"
