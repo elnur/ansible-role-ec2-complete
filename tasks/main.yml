@@ -1,6 +1,3 @@
-- name: Flush filesystem changes
-  shell: sync
-
 - name: Shut down instance
   ec2:
     instance_id: "{{ ec2.instances[0].id }}"
