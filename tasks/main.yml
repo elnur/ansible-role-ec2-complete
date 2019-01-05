@@ -1,3 +1,6 @@
+- name: Flush filesystem changes
+  shell: sync
+
 - name: Create AMI
   ec2_ami:
     name: "{{ ec2_ami_name }}"
