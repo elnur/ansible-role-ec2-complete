@@ -9,6 +9,7 @@ ec2_elb_listeners:
   - protocol: http
     load_balancer_port: 8080
     instance_port: 8080
+ec2_elb_health_check_path: /health
 ec2_asg_name: "{{ ec2_base_name }}"
 ec2_asg_availability_zones:
 ec2_asg_load_balancers: "{{ (ec2_asg_health_check_type == 'ELB')|ternary(ec2_elb_name, []) }}"

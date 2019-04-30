@@ -49,7 +49,7 @@
     health_check:
       ping_protocol: http
       ping_port: 8090
-      ping_path: /health
+      ping_path: "{{ ec2_elb_health_check_path }}"
       response_timeout: 10
       interval: 30
       unhealthy_threshold: 2
