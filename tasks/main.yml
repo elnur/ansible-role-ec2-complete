@@ -78,6 +78,27 @@
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
+  register: asg
+
+- name: Create scaling up policy
+  ec2_scaling_policy:
+    name: up
+    asg_name: "{{ asg.auto_scaling_group_name }}"
+    adjustment_type: ChangeInCapacity
+    scaling_adjustment: +1
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+
+- name: Create scaling down policy
+  ec2_scaling_policy:
+    name: down
+    asg_name: "{{ asg.auto_scaling_group_name }}"
+    adjustment_type: ChangeInCapacity
+    scaling_adjustment: -1
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
 
 - name: Find all launch configurations
   ec2_lc_find:
