@@ -67,7 +67,7 @@
     subnets: "{{ ec2_elb_subnets }}"
     scheme: internal
     listeners: "{{ ec2_elb_listeners }}"
-    security_groups: default
+    security_groups: "{{ ec2_elb_security_groups }}"
     state: present
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"

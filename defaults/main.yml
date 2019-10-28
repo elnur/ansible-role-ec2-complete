@@ -7,6 +7,7 @@ ec2_lc_name: "{{ ec2_base_name }}-{{ ansible_date_time.iso8601|regex_replace('\\
 ec2_tg_name: "{{ ec2_base_name }}"
 ec2_elb_create: "{{ ec2_asg_health_check_type == 'ELB' }}"
 ec2_elb_name: "{{ (ec2_asg_health_check_type == 'ELB')|ternary(ec2_base_name, None) }}"
+ec2_elb_security_groups: default
 ec2_elb_listeners:
   - Protocol: HTTP
     Port: 8080
