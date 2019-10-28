@@ -4,12 +4,15 @@ ec2_lc_instance_type: t3.micro
 ec2_lc_instance_profile:
 ec2_lc_detailed_monitoring: no
 ec2_lc_name: "{{ ec2_base_name }}-{{ ansible_date_time.iso8601|regex_replace('\\D', '') }}"
+ec2_tg_name: "{{ ec2_base_name }}"
 ec2_elb_create: "{{ ec2_asg_health_check_type == 'ELB' }}"
 ec2_elb_name: "{{ (ec2_asg_health_check_type == 'ELB')|ternary(ec2_base_name, None) }}"
 ec2_elb_listeners:
-  - protocol: http
-    load_balancer_port: 8080
-    instance_port: 8080
+  - Protocol: HTTP
+    Port: 8080
+    DefaultActions:
+      - Type: forward
+        TargetGroupName: "{{ ec2_tg_name }}"
 ec2_elb_health_check_path: /health
 ec2_asg_name: "{{ ec2_base_name }}"
 ec2_asg_availability_zones:

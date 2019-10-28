@@ -40,21 +40,34 @@
     aws_secret_key: "{{ aws_secret_key }}"
   register: lc
 
+- name: Create target group
+  elb_target_group:
+    name: "{{ ec2_tg_name }}"
+    vpc_id: "{{ aws_vpc_id }}"
+    protocol: http
+    port: 8080
+    state: present
+    modify_targets: no
+    health_check_protocol: http
+    health_check_port: 8090
+    health_check_interval: 30
+    health_check_timeout: 10
+    health_check_path: "{{ ec2_elb_health_check_path }}"
+    healthy_threshold_count: 2
+    unhealthy_threshold_count: 2
+    deregistration_delay_timeout: 60
+    region: "{{ aws_region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  register: tg
+
 - name: Create load balancer
-  ec2_elb_lb:
+  elb_application_lb:
     name: "{{ ec2_elb_name }}"
     subnets: "{{ ec2_elb_subnets }}"
     scheme: internal
-    connection_draining_timeout: 60
     listeners: "{{ ec2_elb_listeners }}"
-    health_check:
-      ping_protocol: http
-      ping_port: 8090
-      ping_path: "{{ ec2_elb_health_check_path }}"
-      response_timeout: 10
-      interval: 30
-      unhealthy_threshold: 2
-      healthy_threshold: 2
+    security_groups: default
     state: present
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
@@ -67,7 +80,7 @@
     launch_config_name: "{{ lc.name }}"
     vpc_zone_identifier: "{{ ec2_asg_subnets }}"
     availability_zones: "{{ ec2_asg_availability_zones }}"
-    load_balancers: "{{ ec2_asg_load_balancers }}"
+    target_group_arns: "{{ tg.target_group_arn }}"
     wait_timeout: "{{ ec2_asg_wait_timeout }}"
     health_check_type: "{{ ec2_asg_health_check_type }}"
     health_check_period: 30
