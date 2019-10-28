@@ -116,7 +116,7 @@
 
 - name: Find all launch configurations
   ec2_lc_find:
-    name_regex: "{{ ec2_base_name }}-*"
+    name_regex: "{{ ec2_base_name }}-\\d+"
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
