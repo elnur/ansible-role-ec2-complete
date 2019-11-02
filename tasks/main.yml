@@ -134,10 +134,10 @@
   when: ec2_base_name is defined
 
 - name: Find all AMIs
-  ec2_ami_find:
+  ec2_ami_facts:
     owner: self
-    name: "{{ ec2_base_name }}-*"
-    sort: name
+    filters:
+      name: "{{ ec2_base_name }}-*"
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
@@ -152,5 +152,5 @@
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-  with_items: "{{ amis.results[:-5] }}"
+  with_items: "{{ amis.images[:-5] }}"
   when: ec2_base_name is defined
