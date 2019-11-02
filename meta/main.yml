@@ -2,7 +2,7 @@ galaxy_info:
   author: Elnur Abdurrakhimov
   description: Completes EC2
   license: MIT
-  min_ansible_version: 2.2
+  min_ansible_version: 2.5
   platforms:
     - name: Ubuntu
   galaxy_tags:
