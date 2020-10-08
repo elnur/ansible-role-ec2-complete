@@ -11,11 +11,11 @@
   ec2_ami:
     name: "{{ ec2_ami_name }}"
     instance_id: "{{ ec2.instances[0].id }}"
+    no_reboot: yes
+    wait: yes
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-    no_reboot: yes
-    wait: yes
   register: ami
 
 - name: Terminate instance
