@@ -137,7 +137,7 @@
   ec2_ami_facts:
     owner: self
     filters:
-      name: "{{ ec2_base_name }}-\\\\d+"
+      name: "{{ ec2_base_name }}-20*"
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
