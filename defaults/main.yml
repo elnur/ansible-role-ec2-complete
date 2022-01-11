@@ -22,7 +22,7 @@ ec2_asg_capacity_minimum: 1
 ec2_asg_capacity_maximum: 1
 ec2_asg_capacity_desired: 1
 ec2_asg_health_check_type: EC2
-ec2_asg_health_check_grace_period: 30
+ec2_asg_health_check_grace_period: 60
 ec2_asg_wait_timeout: 600
 ec2_asg_tags:
   - Name: "{{ ec2_base_name|replace('-', ' ')|title }}"
