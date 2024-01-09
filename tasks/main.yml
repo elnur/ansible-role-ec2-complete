@@ -35,6 +35,7 @@
     instance_type: "{{ ec2_lc_instance_type }}"
     instance_profile_name: "{{ ec2_lc_instance_profile }}"
     instance_monitoring: "{{ ec2_lc_detailed_monitoring }}"
+    ebs_optimized: yes
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
