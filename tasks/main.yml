@@ -51,7 +51,7 @@
     modify_targets: no
     health_check_protocol: http
     health_check_port: 8090
-    health_check_interval: 30
+    health_check_interval: "{{ ec2_elb_health_check_interval }}"
     health_check_timeout: 10
     health_check_path: "{{ ec2_elb_health_check_path }}"
     healthy_threshold_count: 2
