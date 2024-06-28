@@ -14,7 +14,7 @@ ec2_elb_listeners:
     DefaultActions:
       - Type: forward
         TargetGroupName: "{{ ec2_tg_name }}"
-ec2_elb_health_check_interval: 30
+ec2_elb_health_check_interval: 60
 ec2_elb_health_check_path: /health
 ec2_asg_name: "{{ ec2_base_name }}"
 ec2_asg_availability_zones:
