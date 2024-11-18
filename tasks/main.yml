@@ -86,6 +86,7 @@
     health_check_type: "{{ ec2_asg_health_check_type }}"
     health_check_period: "{{ ec2_asg_health_check_grace_period }}"
     replace_all_instances: yes
+    replace_batch_size: "{{ ec2_asg_replace_batch_size }}"
     min_size: "{{ ec2_asg_capacity_minimum }}"
     max_size: "{{ ec2_asg_capacity_maximum }}"
     desired_capacity: "{{ ec2_asg_capacity_desired }}"
